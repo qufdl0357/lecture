@@ -21,25 +21,21 @@
     #player-container {
       margin-top: 2rem;
     }
-    #placeholder {
-      margin-top: 2rem;
-      font-size: 1.1rem;
-      color: #555;
+    .ui-section {
+      display: none;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>AudioNative Player 테스트</h1>
-    <p>아래에 <strong>publicuserid</strong>를 입력하면 ElevenLabs 플레이어가 나타납니다.</p>
-
-    <input type="text" id="userid-input" placeholder="publicuserid 입력">
-    <button onclick="loadPlayer()">플레이어 로드</button>
-
-    <div id="placeholder">👉 publicuserid를 입력하세요.</div>
+    <div class="ui-section">
+      <h1>AudioNative Player 테스트</h1>
+      <p>아래에 <strong>publicuserid</strong>를 입력하면 ElevenLabs 플레이어가 나타납니다.</p>
+      <input type="text" id="userid-input" placeholder="publicuserid 입력">
+      <button onclick="loadPlayer()">플레이어 로드</button>
+    </div>
     <div id="player-container"></div>
-
-    <div class="content" style="display:none;">
+    <div class="content">
       <h1>IT 서비스를 알아야 하는 이유</h1>
       <p>기술은 선택이 아닌 생존입니다. 디지털 시대를 살아가는 우리에게 IT 서비스는 필수 역량입니다.</p>
 
@@ -66,17 +62,11 @@
 
   <script>
     function loadPlayer() {
-      const userid = document.getElementById('userid-input').value.trim();
+      const userid = prompt("publicuserid를 입력해주세요").trim();
       if (!userid) {
-        alert("publicuserid를 입력해주세요.");
+        alert("publicuserid가 필요합니다.");
         return;
       }
-
-      // 안내 문구 숨기기
-      document.getElementById('placeholder').style.display = "none";
-
-      // 콘텐츠 보이기
-      document.querySelector('.content').style.display = "block";
 
       // 플레이어 생성
       const widget = document.createElement('div');
@@ -84,7 +74,7 @@
       widget.setAttribute("data-height", "100");
       widget.setAttribute("data-width", "100%");
       widget.setAttribute("data-publicuserid", userid);
-      widget.setAttribute("data-contentselectors", ".content > p");
+      widget.setAttribute("data-contentselectors", ".content > *"); // content만 읽도록 설정
       widget.setAttribute("data-playerurl", "https://elevenlabs.io/player/index.html");
 
       document.getElementById('player-container').innerHTML = "";

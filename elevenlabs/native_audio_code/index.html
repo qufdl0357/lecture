@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>AudioNative 데모</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      background: #f0f0f0;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+    }
+    input, button {
+      padding: 0.5rem;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+    }
+    #player-container {
+      margin-top: 2rem;
+    }
+    #placeholder {
+      margin-top: 2rem;
+      font-size: 1.1rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>AudioNative Player 테스트</h1>
+    <p>아래에 <strong>publicuserid</strong>를 입력하면 ElevenLabs 플레이어가 나타납니다.</p>
+
+    <input type="text" id="userid-input" placeholder="publicuserid 입력">
+    <button onclick="loadPlayer()">플레이어 로드</button>
+
+    <div id="placeholder">👉 publicuserid를 입력하세요.</div>
+    <div id="player-container"></div>
+
+    <div class="content" style="display:none;">
+      <h1>IT 서비스를 알아야 하는 이유</h1>
+      <p>기술은 선택이 아닌 생존입니다. 디지털 시대를 살아가는 우리에게 IT 서비스는 필수 역량입니다.</p>
+
+      <h2>1. 일상 속 디지털 생존력</h2>
+      <p>이메일, SNS, 모바일 뱅킹 등 모든 것이 IT 서비스로 구성되어 있습니다. 이를 이해하지 못하면 디지털 환경에서 능동적으로 살아남기 어렵습니다.</p>
+
+      <h2>2. 업무 효율과 경쟁력 향상</h2>
+      <p>협업 툴, 자동화 시스템, 데이터 분석 등 IT 서비스는 업무 생산성과 직결됩니다. 이를 이해하는 사람은 문제 해결과 가치 창출의 중심에 서게 됩니다.</p>
+
+      <h2>3. 창의성과 혁신의 도구</h2>
+      <p>디자인 툴, 개발 플랫폼, 마케팅 분석 도구 등 IT는 창의력을 실현하는 도구입니다. 기술을 이해하는 사람은 새로운 가능성을 탐험할 수 있습니다.</p>
+
+      <h2>4. 사회적 연결과 정보 접근</h2>
+      <p>IT 서비스는 사람과 사람을 연결하고 정보를 민주화합니다. 누구나 지식을 공유하고, 원하는 정보를 얻을 수 있는 시대입니다.</p>
+
+      <h2>5. 미래를 준비하는 힘</h2>
+      <p>AI, IoT, 블록체인 등 새로운 기술은 미래 사회의 기반이 됩니다. IT를 이해하는 사람은 변화에 적응하는 것을 넘어, 변화를 주도할 수 있습니다.</p>
+
+      <h2>결론</h2>
+      <p>IT 서비스를 이해한다는 것은 세상을 읽는 방식과 자신의 가능성을 확장하는 일입니다. 기술은 인간의 능력을 확장하는 도구이며, 이를 이해하는 것이 현대를 살아가는 지혜입니다.</p>
+    </div>
+
+  </div>
+
+  <script>
+    function loadPlayer() {
+      const userid = document.getElementById('userid-input').value.trim();
+      if (!userid) {
+        alert("publicuserid를 입력해주세요.");
+        return;
+      }
+
+      // 안내 문구 숨기기
+      document.getElementById('placeholder').style.display = "none";
+
+      // 콘텐츠 보이기
+      document.querySelector('.content').style.display = "block";
+
+      // 플레이어 생성
+      const widget = document.createElement('div');
+      widget.id = "elevenlabs-audionative-widget";
+      widget.setAttribute("data-height", "60");
+      widget.setAttribute("data-width", "100%");
+      widget.setAttribute("data-publicuserid", userid);
+      widget.setAttribute("data-contentselectors", ".content > p");
+      widget.setAttribute("data-playerurl", "https://elevenlabs.io/player/index.html");
+
+      document.getElementById('player-container').innerHTML = "";
+      document.getElementById('player-container').appendChild(widget);
+
+      const script = document.createElement('script');
+      script.src = "https://elevenlabs.io/player/audioNativeHelper.js";
+      script.type = "text/javascript";
+      document.getElementById('player-container').appendChild(script);
+    }
+  </script>
+</body>
+</html>
